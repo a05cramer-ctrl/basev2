@@ -7,12 +7,12 @@
 <meta name="description" content="$BASEMENT paired with $NVDA. no sun, no rent, no exit. he never left the chair and he's up 400%.">
 <meta property="og:title" content="$BASEMENT — still in mom's basement. still up 400%.">
 <meta property="og:description" content="$BASEMENT · paired with $NVDA. market cap = how deep the setup goes.">
-<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image" content="og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="assets/og.jpg">
+<meta name="twitter:image" content="og.jpg">
 <link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#05070a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -183,7 +183,7 @@ button{font-family:inherit;background:transparent;border:0;color:inherit}
 
 <!-- ===== gate ===== -->
 <div id="gate">
-  <div class="face"><img src="assets/pfp.jpg" alt=""></div>
+  <div class="face"><img src="pfp.jpg" alt=""></div>
   <div class="dark"></div>
   <div class="txt">
     <h1 id="gh">HE HASN'T COME UP<br>SINCE <span id="gy">2011</span></h1>
@@ -231,7 +231,7 @@ button{font-family:inherit;background:transparent;border:0;color:inherit}
     <!-- CENTRE -->
     <div id="stage">
       <div id="hero">
-        <img id="feedimg" src="assets/hero.jpg" alt="">
+        <img id="feedimg" src="hero.jpg" alt="">
         <div class="burn"></div>
         <div class="grad"></div>
         <div class="torch"></div>
@@ -275,10 +275,10 @@ button{font-family:inherit;background:transparent;border:0;color:inherit}
 <!-- ===== 3d room ===== -->
 <div id="room3d">
   <div class="world" id="world">
-    <div class="f fr"><div class="strip" style="top:8%"></div><div class="poster" style="left:8%;top:22%"><img src="assets/s01-setup.jpg" alt=""></div><div class="poster" style="right:8%;top:22%"><img src="assets/s06-gold.jpg" alt=""></div><div class="strip" style="bottom:10%"></div></div>
-    <div class="f bk"><div class="poster" style="left:14%;top:28%"><img src="assets/s02-stairs.jpg" alt=""></div><div class="poster" style="right:14%;top:28%"><img src="assets/s04-jet.jpg" alt=""></div><div class="strip" style="top:12%"></div></div>
-    <div class="f lf"><div class="poster" style="left:18%;top:26%;width:48%"><img src="assets/s03-servers.jpg" alt=""></div><div class="strip" style="bottom:14%"></div></div>
-    <div class="f rt"><div class="poster" style="right:18%;top:26%;width:48%"><img src="assets/s05-yacht.jpg" alt=""></div><div class="strip" style="bottom:14%"></div></div>
+    <div class="f fr"><div class="strip" style="top:8%"></div><div class="poster" style="left:8%;top:22%"><img src="s01-setup.jpg" alt=""></div><div class="poster" style="right:8%;top:22%"><img src="s06-gold.jpg" alt=""></div><div class="strip" style="bottom:10%"></div></div>
+    <div class="f bk"><div class="poster" style="left:14%;top:28%"><img src="s02-stairs.jpg" alt=""></div><div class="poster" style="right:14%;top:28%"><img src="s04-jet.jpg" alt=""></div><div class="strip" style="top:12%"></div></div>
+    <div class="f lf"><div class="poster" style="left:18%;top:26%;width:48%"><img src="s03-servers.jpg" alt=""></div><div class="strip" style="bottom:14%"></div></div>
+    <div class="f rt"><div class="poster" style="right:18%;top:26%;width:48%"><img src="s05-yacht.jpg" alt=""></div><div class="strip" style="bottom:14%"></div></div>
     <div class="f tp"></div><div class="f bt2"></div>
   </div>
   <button class="exit" id="exit3d">✕ LEAVE (he'd rather you didn't)</button>
@@ -358,20 +358,20 @@ const VIDS={"s01-setup":"cam01","s02-stairs":"cam02","s06-gold":"cam03","s04-jet
 const hero=$("#hero"), feedimg=$("#feedimg");
 const vids={};
 CAMS.forEach(([f],i)=>{ const c=VIDS[f]; if(!c) return;
-  const v=document.createElement("video"); v.poster=A("assets/"+f+".jpg");
-  [["assets/"+c+".webm","video/webm"],["assets/"+c+".mp4","video/mp4"]].forEach(([pth,ty])=>{ const so=document.createElement("source"); so.src=A(pth); so.type=ty; v.appendChild(so); });
+  const v=document.createElement("video"); v.poster=A(""+f+".jpg");
+  [[""+c+".webm","video/webm"],[""+c+".mp4","video/mp4"]].forEach(([pth,ty])=>{ const so=document.createElement("source"); so.src=A(pth); so.type=ty; v.appendChild(so); });
   v.muted=true; v.loop=true; v.playsInline=true; v.autoplay=true; v.setAttribute("muted",""); v.setAttribute("playsinline",""); v.setAttribute("loop",""); v.preload="auto";
   v.addEventListener("error",()=>{ v.classList.remove("on"); if(cam===i) feedimg.style.opacity=1; });
   hero.insertBefore(v,hero.firstChild.nextSibling); vids[i]=v; });
-$("#camgrid").innerHTML=CAMS.map(([f,n],i)=>`<button class="cg${i===0?" on":""}" data-i="${i}"><img src="${A("assets/"+f+"-t.jpg")}" alt=""><div class="nz"></div><span>${String(i+1).padStart(2,"0")}</span></button>`).join("");
+$("#camgrid").innerHTML=CAMS.map(([f,n],i)=>`<button class="cg${i===0?" on":""}" data-i="${i}"><img src="${A(""+f+"-t.jpg")}" alt=""><div class="nz"></div><span>${String(i+1).padStart(2,"0")}</span></button>`).join("");
 let cam=0;
 function setCam(i,quiet){ i=(i+CAMS.length)%CAMS.length; cam=i;
   Object.values(vids).forEach(v=>{ v.classList.remove("on"); try{v.pause();}catch(e){} });
   const lv=$("#livetag");
-  if(vids[i]){ const v=vids[i]; v.classList.add("on"); feedimg.src=A("assets/"+CAMS[i][0]+".jpg"); feedimg.style.opacity=0;
+  if(vids[i]){ const v=vids[i]; v.classList.add("on"); feedimg.src=A(""+CAMS[i][0]+".jpg"); feedimg.style.opacity=0;
     try{ v.currentTime=0; const pr=v.play(); if(pr&&pr.catch) pr.catch(()=>{ v.classList.remove("on"); feedimg.style.opacity=1; }); }catch(e){ v.classList.remove("on"); feedimg.style.opacity=1; }
     if(lv){ lv.textContent="LIVE"; lv.className="lv on"; } }
-  else { feedimg.src=A("assets/"+CAMS[i][0]+".jpg"); feedimg.style.opacity=1;
+  else { feedimg.src=A(""+CAMS[i][0]+".jpg"); feedimg.style.opacity=1;
     if(lv){ lv.textContent="SIGNAL LOST · LAST FRAME"; lv.className="lv"; } }
   $("#camname").textContent=CAMS[i][1]; $("#camnote").textContent=CAMS[i][2];
   $$("#camgrid .cg").forEach((el,k)=>el.classList.toggle("on",k===i));
@@ -382,8 +382,8 @@ setCam(0,true);
 addEventListener("keydown",e=>{ if(e.key==="ArrowRight") setCam(cam+1); if(e.key==="ArrowLeft") setCam(cam-1); });
 (function camtc(){ const d=new Date(); $("#camtc").textContent=[d.getHours(),d.getMinutes(),d.getSeconds()].map(n=>String(n).padStart(2,"0")).join(":"); setTimeout(camtc,1000); })();
 /* he occasionally looks straight into the lens */
-setInterval(()=>{ if(Math.random()<.14){ const prev=feedimg.src, pv=vids[cam]; if(pv) pv.classList.remove("on"); feedimg.src=A("assets/pfp.jpg"); feedimg.style.opacity=1; $("#camname").textContent="CAM ?? · HE IS LOOKING AT YOU"; glitch(true);
-  setTimeout(()=>{ $("#camname").textContent=CAMS[cam][1]; if(pv){ pv.classList.add("on"); feedimg.style.opacity=0; } else feedimg.src=A("assets/"+CAMS[cam][0]+".jpg"); },1500); } },11000);
+setInterval(()=>{ if(Math.random()<.14){ const prev=feedimg.src, pv=vids[cam]; if(pv) pv.classList.remove("on"); feedimg.src=A("pfp.jpg"); feedimg.style.opacity=1; $("#camname").textContent="CAM ?? · HE IS LOOKING AT YOU"; glitch(true);
+  setTimeout(()=>{ $("#camname").textContent=CAMS[cam][1]; if(pv){ pv.classList.add("on"); feedimg.style.opacity=0; } else feedimg.src=A(""+CAMS[cam][0]+".jpg"); },1500); } },11000);
 
 /* ===== upgrades ladder ===== */
 const M=[[1e4,"SECOND MONITOR","dexscreener profile paid"],[2.5e4,"RGB STRIP","dex boosts on"],[5e4,"NEW GPU","trending push"],[1e5,"BED MOVED DOWN","first KOLs"],[2.5e5,"MINI FRIDGE","coingecko + cmc"],[5e5,"MOM STOPPED KNOCKING","a famous name posts him"],[1e6,"BOUGHT THE HOUSE","billboard in a real city"],[1e7,"NEVER GOING OUTSIDE","tier-1 CEX listing"]];
