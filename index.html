@@ -405,8 +405,10 @@ function paint(price,mcap,vol,src,tx){ price=+price||0; mcap=+mcap||0; const b=t
   $("#k-buys").textContent=b==null?"---":b.toLocaleString(); $("#k-sells").textContent=s==null?"---":s.toLocaleString();
   if(prevBuys!=null&&b>prevBuys) buyFx(); if(prevSells!=null&&s>prevSells) sellFx(); prevBuys=b; prevSells=s;
   $("#src").textContent="source: "+src+" · refresh 30s"; setState(mcap); }
-async function stats(){ if(!CFG.CA) return; try{ const r=await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CFG.CA}`); const j=await r.json(); const p=(j.pairs||[]).sort((a,b)=>(b.liquidity?.usd||0)-(a.liquidity?.usd||0))[0]; if(p){ paint(p.priceUsd,p.fdv??p.marketCap,p.volume?.h24,"dexscreener",p.txns?.h24); return; } }catch(e){}
-  try{ const net=sol?"solana":"robinhood"; const r=await fetch(`https://api.geckoterminal.com/api/v2/networks/${net}/tokens/${CFG.CA}/pools?page=1`); const j=await r.json(); const p=j.data?.[0]?.attributes; if(p) paint(p.base_token_price_usd,p.fdv_usd??p.market_cap_usd,p.volume_usd?.h24,"geckoterminal",p.transactions?.h24); }catch(e){} }
+async function stats(){ if(!CFG.CA) return; let p=null; try{ const r=await fetch(`https://api.dexscreener.com/latest/dex/tokens/${CFG.CA}`); const j=await r.json(); p=(j.pairs||[]).sort((a,b)=>(b.liquidity?.usd||0)-(a.liquidity?.usd||0))[0]||null; }catch(e){}
+  if(p&&(p.fdv||p.marketCap||+p.priceUsd)){ paint(p.priceUsd,p.fdv??p.marketCap??(+p.priceUsd*1e9),p.volume?.h24,"dexscreener",p.txns?.h24); return; }
+  if(sol){ try{ const r=await fetch(`https://lite-api.jup.ag/price/v3?ids=${CFG.CA}`); const j=await r.json(); const q=j[CFG.CA]; if(q&&q.usdPrice){ paint(q.usdPrice,q.usdPrice*1e9,p?.volume?.h24??0,"jupiter",p?.txns?.h24); return; } }catch(e){} }
+  try{ const net=sol?"solana":"robinhood"; const r=await fetch(`https://api.geckoterminal.com/api/v2/networks/${net}/tokens/${CFG.CA}/pools?page=1`); const j=await r.json(); const g=j.data?.[0]?.attributes; if(g) paint(g.base_token_price_usd,g.fdv_usd??g.market_cap_usd,g.volume_usd?.h24,"geckoterminal",g.transactions?.h24); }catch(e){} }
 stats(); setInterval(stats,30000);
 setInterval(()=>{ if(!CFG.CA){ if(Math.random()<.5) buyFx(); else if(Math.random()<.18) sellFx(); } },6000);
 
